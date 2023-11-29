@@ -6,6 +6,8 @@ import { style } from "./styles";
 
 import MyInputText from "../../componentes/inputText";
 
+import { Header } from "../../componentes/header";
+
 
 export default function Home() {
 
@@ -26,7 +28,8 @@ export default function Home() {
 
     return (
         <View style={style.caixa}>
-            <Text style={style.textoTitulo}>KLEBERviagens</Text>
+            <Header />
+            <Text style={style.textoTitulo}>VIAGENS SEGURAS</Text>
             <MyInputText place="Distância da ida em KM" value={kmIda} setValue={setKmIda} />
             <MyInputText place="Distância da volta em KM" value={kmVolta} setValue={setKmVolta} />
             <MyInputText place="Valor do KM em R$" value={valorKm} setValue={setValorKm} />
