@@ -18,14 +18,14 @@ export const style = StyleSheet.create({
         marginTop: 20
     },
 
-    textoBotao:{
+    textoBotao: {
         textAlign: 'center',
         fontWeight: 'bold',
         color: '#0072ab',
         fontSize: 16
     },
 
-    textoValorTotal:{
+    textoValorTotal: {
         marginTop: 70,
         fontSize: 80,
         fontWeight: 'bold',
@@ -33,11 +33,21 @@ export const style = StyleSheet.create({
         color: '#2596cb'
     },
 
-    textoTitulo:{
+    textoTitulo: {
         marginBottom: 70,
         fontSize: 28,
         fontWeight: 'bold',
         textAlign: 'center',
         color: '#2596cb'
+    },
+
+    campo: {
+        backgroundColor: '#E0FFFF',
+        padding: 10,
+        borderRadius: 5,
+        fontSize: 16,
+        color: '#4682B4',
+        width: '100%',
+        marginBottom: 10
     }
 })
