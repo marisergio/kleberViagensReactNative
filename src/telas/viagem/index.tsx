@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { View, TouchableOpacity, Text, FlatList } from "react-native";
 
@@ -10,6 +10,9 @@ import MyInput from "../../componentes/inputText";
 
 import { Header } from "../../componentes/header";
 
+import ViagemService from "../../services/viagem";
+import { styles } from "../../componentes/header/styles";
+
 
 type Viagem = {
     destino: string;
@@ -18,18 +21,22 @@ type Viagem = {
     valor: string;
 }
 
-export default function Viagem() {
 
-    const [viagem, setViagem] = useState<Viagem>({ destino: 'dfsdfd', distancia: 'dd', contratante: 'dsafsdfsdfsd', valor: '44' });
+
+export default function Viagem({ navigation }) {
+
+    const [viagem, setViagem] = useState<Viagem>({ destino: '', distancia: '', contratante: '', valor: '' });
 
     const [viagens, setViagens] = useState([]);
 
     function adicionarViagem() {
 
+        ViagemService.createViagem(viagem).finally(() => navigation.navigate('Viagens'));
+
         setViagens(prevState => [...prevState, viagem]);
         //viagens.push({ destino, distancia, contratante, valor });
 
-        setViagem({ destino: '', distancia: '', contratante: '', valor: '' })
+        //  setViagem({ destino: '', distancia: '', contratante: '', valor: '' })
     }
 
     function removerViagem(index: number) {
@@ -68,7 +75,7 @@ export default function Viagem() {
                 data={viagens}
                 keyExtractor={item => item.contratante}
                 renderItem={({ item, index }) => (
-                    <View style={{ backgroundColor: '#0f0', flexDirection: 'row', alignItems: 'center', gap: '16px', marginTop: 30 }}>
+                    <View style={style.itemLista}>
                         <Text style={{ flex: 1, padding: 10, fontSize: 18 }}>{item.contratante}</Text>
 
                         <TouchableOpacity onPress={() => removerViagem(index)} style={{ backgroundColor: '#f00', padding: 10 }}>

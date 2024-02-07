@@ -26,10 +26,10 @@ export default function Home() {
     useEffect(() => {
         // Esta função será executada sempre que isIgualIdaVolta for atualizado
         setKmVolta(isIgualIdaVolta ? kmIda : '');
-      }, [isIgualIdaVolta, kmIda]);
+    }, [isIgualIdaVolta, kmIda]);
 
     function calcularValorTotal() {
-        let valorTotal = (parseInt(kmIda) + parseInt(kmVolta)) * parseInt(valorKm) * Math.round(fator);
+        let valorTotal = (parseInt(kmIda) + parseInt(kmVolta)) * parseInt(valorKm) * fator;
         setTotal(valorTotal);
         setKmIda('');
         setKmVolta('');
@@ -41,7 +41,7 @@ export default function Home() {
         setIsIdaVolta(value == "Sim" ? true : false);
     }
 
-    function handlerIsIgualIdaVolta(value){
+    function handlerIsIgualIdaVolta(value) {
         setIsIgualIdaVolta(value);
         setKmVolta(kmIda);
     }
@@ -60,9 +60,12 @@ export default function Home() {
                 <Picker.Item label="Não" value="Não" />
             </Picker>
             {isIdaVolta &&
-                <View>
+                <View style={{ width: '100%' }}>
                     <Text style={{ marginTop: 10, width: '100%' }}>Distâncias iguais?</Text>
-                    <Switch value={isIgualIdaVolta} onValueChange={(value) => setIsIgualIdaVolta(value)} />
+                    <Switch style={{ marginBottom: 10 }} value={isIgualIdaVolta} onValueChange={(value) => {
+                        setIsIgualIdaVolta(value);
+                        setKmVolta(isIgualIdaVolta ? kmIda : '');
+                    }} />
                     <MyInputText place="Distância da volta em KM" value={kmVolta} setValue={setKmVolta} />
                 </View>
 
@@ -70,9 +73,10 @@ export default function Home() {
 
             <Text style={{ marginTop: 10 }}>Fator: {fator.toFixed(1)}</Text>
             <Slider style={{ marginTop: 10, marginBottom: 30, width: '100%' }}
-                minimumValue={1}
+                minimumValue={0.5}
                 maximumValue={4}
                 value={fator}
+                step={0.5}
                 onValueChange={(value) => setFator(value)}
 
             />

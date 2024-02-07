@@ -18,14 +18,14 @@ export const style = StyleSheet.create({
         marginTop: 20
     },
 
-    textoBotao:{
+    textoBotao: {
         textAlign: 'center',
         fontWeight: 'bold',
         color: '#0072ab',
         fontSize: 16
     },
 
-    textoValorTotal:{
+    textoValorTotal: {
         marginTop: 70,
         fontSize: 80,
         fontWeight: 'bold',
@@ -33,11 +33,19 @@ export const style = StyleSheet.create({
         color: '#2596cb'
     },
 
-    textoTitulo:{
+    textoTitulo: {
         marginBottom: 70,
         fontSize: 28,
         fontWeight: 'bold',
         textAlign: 'center',
         color: '#2596cb'
+    },
+
+    itemLista: {
+        backgroundColor: '#0f0',
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 16,
+        marginTop: 30
     }
-})
+});
