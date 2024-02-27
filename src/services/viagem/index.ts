@@ -20,7 +20,14 @@ const ViagemService = {
         }
     },
 
-    // Outros métodos para atualizar e deletar viagens podem ser adicionados aqui
+    async deleteViagem(id){
+        try{
+            const response = await api.delete(`viagem/${id}`);
+            return response.data;
+        }catch(error){
+            throw new Error(error);
+        }
+    }
 };
 
 export default ViagemService;

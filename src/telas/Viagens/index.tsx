@@ -1,10 +1,10 @@
-import { View, Text, FlatList, Button, ActivityIndicator, Alert } from 'react-native';
+import { View, Text, FlatList, Button, ActivityIndicator, Alert, TouchableOpacity } from 'react-native';
 import { useState, useEffect } from 'react';
 import ViagemService from '../../services/viagem';
 import { Header } from '../../componentes/header';
 import { style } from '../home/styles';
 import { useNavigation } from '@react-navigation/native';
-
+import { Feather } from '@expo/vector-icons';
 
 export default function ListarViagens({ navigation }) {
 
@@ -12,13 +12,14 @@ export default function ListarViagens({ navigation }) {
     const navigationState = useNavigation();
     const [isLoading, setIsLoading] = useState(true);
 
-    /* useEffect(() => {
-         ViagemService.getAllViagens().then(response => {
-             setViagens(response);
-         }).catch(error => {
-             console.error('Erro ao buscar clientes:', error);
-         });
-     }, []);*/
+    // useEffect(() => {
+    //     ViagemService.getAllViagens().then(response => {
+    //         setViagens(response.data);
+    //         setIsLoading(false);
+    //     }).catch(error => {
+    //         console.error('Erro ao buscar clientes:', error);
+    //     });
+    // }, []);
 
     /* async function getAllViagens() {
         const response  = await ViagemService.getAllViagens();
@@ -59,20 +60,39 @@ export default function ListarViagens({ navigation }) {
         return unsubscribe;
     }, [navigationState]);
 
+    function removerViagem(index: number, id: number) {
 
-    if (isLoading) { return (<ActivityIndicator />) }
+        const updateViagens2 = [...viagens];
+        updateViagens2.splice(index, 1)
+
+
+        // const updateViagens =  viagens.filter((v:Viagem)=>v.contratante!=key);
+
+        setViagens(updateViagens2);
+
+        ViagemService.deleteViagem(id);
+
+    }
+
+
+    if (isLoading) {
+        return (<ActivityIndicator />)
+    }
     return (<View style={style.caixa}>
         <Header />
         <Text style={style.textoTitulo}>VIAGEM</Text>
-        <Button title='Nova' onPress={() => navigation.navigate('viagem')} />
-        <FlatList
+        <Button title='Nova Viagem' onPress={() => navigation.navigate('viagem')} />
+        <FlatList style={{ width: '100%' }}
             data={viagens}
             keyExtractor={item => item.id.toString()}
-            renderItem={({ item }) => (
-                <View>
+            renderItem={({ item, index }) => (
+                <View style={{ backgroundColor: '#f3f3f3', padding: 10, margin: 10 }}>
                     <Text>Contratante: {item.contratante}</Text>
                     <Text>Destino: {item.destino}</Text>
                     <Text>Distância: {item.distancia}</Text>
+                    <TouchableOpacity onPress={() => removerViagem(index, item.id)} style={{ backgroundColor: '#f00', padding: 10 }}>
+                            <Feather name="trash" size={24} style={{color:'#fff'}} />
+                        </TouchableOpacity>
                 </View>
             )}
         />
